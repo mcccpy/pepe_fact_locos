@@ -1,0 +1,17 @@
+{
+	"name": "AzureSqlDatabase1_bd_pepe_wow",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "pepe.database.windows.net",
+			"database": "free-sql-db-8061196",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "pepe",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDJGQjAzMEMyLURFMTgtNDQ2Mi1CMDM0LUYzMDkyODBDQ0Y1NF82ODRkYmExYy05OTllLTRkY2ItODc3NS00OWM0ZWM3NjU3MTgiDQp9"
+		}
+	}
+}
