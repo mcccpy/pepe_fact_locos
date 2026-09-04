@@ -1,0 +1,15 @@
+{
+	"name": "df-wow-pepe-factori-yeiyeiyei",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "brazilsouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "4ba3988e-5363-48b3-971a-c82982cd2c92",
+		"tenantId": "cc28633f-12b8-46cb-bc15-951dae239b4d"
+	}
+}
