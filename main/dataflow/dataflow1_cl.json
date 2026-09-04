@@ -1,0 +1,86 @@
+{
+	"name": "dataflow1_cl",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1_cliente",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id_cliente as integer,",
+				"          {ci-nit} as integer,",
+				"          nombre as string,",
+				"          {fecha-nac} as string,",
+				"          genero as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 derive({fecha-nac} = case(\r",
+				"    /* Caso 1: 26/11/1956 (dd/MM/yyyy) */\r",
+				"    regexMatch(`fecha-nac`, '^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$'), \r",
+				"        toDate(`fecha-nac`, 'dd/MM/yyyy'),\r",
+				"    \r",
+				"    /* Caso 2: 22-09-1967 (dd-MM-yyyy) */\r",
+				"    regexMatch(`fecha-nac`, '^[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}$'), \r",
+				"        toDate(`fecha-nac`, 'dd-MM-yyyy'),\r",
+				"    \r",
+				"    /* Caso 3: 1985-10-16 (yyyy-MM-dd) */\r",
+				"    regexMatch(`fecha-nac`, '^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$'), \r",
+				"        toDate(`fecha-nac`, 'yyyy-MM-dd'),\r",
+				"    \r",
+				"    /* Caso 4: 6/mar/1987 (d/MMM/yyyy) */\r",
+				"    regexMatch(`fecha-nac`, '^[0-9]{1,2}/[a-zA-Z]{3}/[0-9]{4}$'), \r",
+				"        toDate(\r",
+				"            replace(\r",
+				"                replace(\r",
+				"                    replace(lower(`fecha-nac`), 'ene', 'jan'),\r",
+				"                'abr', 'apr'),\r",
+				"            'dic', 'dec'),\r",
+				"        'd/MMM/yyyy'),\r",
+				"\r",
+				"    /* Caso por defecto: Retorna NULL si no coincide con ningún formato */\r",
+				"    toDate('')\r",
+				")) ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          ID_CLIENTE as integer,",
+				"          CI_NIT as integer,",
+				"          NOMBRE as string,",
+				"          FECHA_NAC as date,",
+				"          GENERO as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+			]
+		}
+	}
+}
