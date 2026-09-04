@@ -1,0 +1,40 @@
+{
+	"name": "DelimitedText1_productos",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1_ca",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "productos.csv",
+				"fileSystem": "wowpepelococontainer"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "id_producto",
+				"type": "String"
+			},
+			{
+				"name": "producto",
+				"type": "String"
+			},
+			{
+				"name": "precio",
+				"type": "String"
+			},
+			{
+				"name": "stock",
+				"type": "String"
+			}
+		]
+	}
+}

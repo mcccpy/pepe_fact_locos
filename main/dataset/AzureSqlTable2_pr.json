@@ -1,0 +1,37 @@
+{
+	"name": "AzureSqlTable2_pr",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1_bd_pepe_wow",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ID_PRODUCTO",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PRODUCTO",
+				"type": "varchar"
+			},
+			{
+				"name": "PRECIO",
+				"type": "decimal",
+				"precision": 3,
+				"scale": 2
+			},
+			{
+				"name": "STOCK",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "PRODUCTOS"
+		}
+	}
+}
